@@ -48,7 +48,7 @@ jobs:
 
   deploy:
     needs: lint
-    runs-on: CICD
+    runs-on: self-hosted
     permissions:
       id-token: write
       contents: read
