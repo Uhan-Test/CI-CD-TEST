@@ -60,29 +60,29 @@ jobs:
       # - name: Set AWS region to ap-northeast-2
       #   run: aws configure set default.region ap-northeast-2
 
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v4 # More information on this action can be found below in the 'AWS Credentials' section
-        with:
-          # role-to-assume: arn:aws:iam::123456789012:role/my-github-actions-role
-          role-to-assume: arn:aws:iam::730335305602:oidc-provider/token.actions.githubusercontent.com
-          aws-region: aws-region-2
+      # - name: Configure AWS credentials
+      #   uses: aws-actions/configure-aws-credentials@v4 # More information on this action can be found below in the 'AWS Credentials' section
+      #   with:
+      #     # role-to-assume: arn:aws:iam::123456789012:role/my-github-actions-role
+      #     role-to-assume: arn:aws:iam::730335305602:oidc-provider/token.actions.githubusercontent.com
+      #     aws-region: aws-region-2
 
-      - name: Login to Amazon ECR
-        id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v2
-        # with:
-        #   aws-region: ap-northeast-2
+      # - name: Login to Amazon ECR
+      #   id: login-ecr
+      #   uses: aws-actions/amazon-ecr-login@v2
+      #   # with:
+      #   #   aws-region: ap-northeast-2
 
-      - name: Build, tag, and push image to Amazon ECR
-        id: build-image
-        env:
-          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          REPOSITORY: cicdtest
-          IMAGE_TAG: ${{ github.sha }}
-        run: |
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-          echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+      # - name: Build, tag, and push image to Amazon ECR
+      #   id: build-image
+      #   env:
+      #     ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+      #     REPOSITORY: cicdtest
+      #     IMAGE_TAG: ${{ github.sha }}
+      #   run: |
+      #     docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+      #     docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+      #     echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
       # - name: Deploy to EC2
       #   uses: appleboy/ssh-action@master
       # with:
