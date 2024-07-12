@@ -61,7 +61,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v4 # More information on this action can be found below in the 'AWS Credentials' section
         with:
           aws-region: ap-northeast-2
-          role-to-assume: CICD # arn:aws:iam::730335305602:oidc-provider/token.actions.githubusercontent.com
+          role-to-assume: arn:aws:iam::730335305602:oidc-provider/token.actions.githubusercontent.com
 
       - name: Login to Amazon ECR
         id: login-ecr
