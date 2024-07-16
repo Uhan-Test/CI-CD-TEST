@@ -47,7 +47,7 @@ jobs:
         run: npm test
 
   deploy:
-    needs: lint
+    needs: test
     runs-on: self-hosted
     permissions:
       id-token: write
