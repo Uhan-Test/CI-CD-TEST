@@ -80,8 +80,6 @@ jobs:
           echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:latest"
 
 
-        # docker-compose tag $ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/cicdtest:latest
-
         #   aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin $ECR_REGISTRY
         #   docker-compose -f docker-compose.yaml build $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
         #   docker-compose tag $ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/cicdtest:$IMAGE_TAG
