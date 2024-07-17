@@ -76,8 +76,9 @@ jobs:
         run: | 
           aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin $ECR_REGISTRY
           docker-compose build 
-          docker-compose push
-          echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+          docker-compose tag $ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/cicdtest:latest
+          docker-compose push docker-compose.yaml push $ECR_REGISTRY/$ECR_REPOSITORY:latest
+          echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:latest"
 
 
         #   aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin $ECR_REGISTRY
