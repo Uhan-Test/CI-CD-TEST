@@ -75,7 +75,7 @@ jobs:
           IMAGE_TAG: ${{ github.sha }}
         run: | 
           aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin $ECR_REGISTRY
-          docker-compose build 
+          docker-compose build .
           docker-compose push docker-compose.yaml push $ECR_REGISTRY/$ECR_REPOSITORY:latest
           echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:latest"
 
