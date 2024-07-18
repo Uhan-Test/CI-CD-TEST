@@ -75,6 +75,9 @@ jobs:
           IMAGE_TAG: ${{ github.sha }}
         run: | 
           aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin $ECR_REGISTRY
+          sudo groupadd docker
+          sudo usermod -aG docker $USER
+          newgrp docker
           docker-compose build
           docker tag mongo:latest $ECR_REGISTRY/cicdtest:$IMAGE_TAG
           docker tag mariadb:latest $ECR_REGISTRY/cicdtest:$IMAGE_TAG
