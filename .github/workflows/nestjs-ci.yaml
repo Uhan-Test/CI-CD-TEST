@@ -75,6 +75,8 @@ jobs:
           IMAGE_TAG: ${{ github.sha }}
         run: | 
           aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin $ECR_REGISTRY
+          sudo ./svc.sh stop
+          sudo ./svc.sh start
           sudo docker-compose build
           docker tag mongo:latest $ECR_REGISTRY/cicdtest:$IMAGE_TAG
           docker tag mariadb:latest $ECR_REGISTRY/cicdtest:$IMAGE_TAG
@@ -84,8 +86,7 @@ jobs:
 
 
 
-        # sudo ./svc.sh stop
-        # sudo ./svc.sh start
+
         # sudo usermod -aG docker $ECR_REGISTRY
         # newgrp docker
         #   aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin $ECR_REGISTRY
