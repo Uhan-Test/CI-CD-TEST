@@ -30,39 +30,39 @@ export class TeamService {
     return await this.verifyTeamById(id);
   }
 
-  async create(file: Express.Multer.File) {
-    if (!file.originalname.endsWith('.csv')) {
-      throw new BadRequestException('CSV 파일만 업로드 가능합니다.');
-    }
+  async create(file: string) {
+    // if (!file.originalname.endsWith('.csv')) {
+    //   throw new BadRequestException('CSV 파일만 업로드 가능합니다.');
+    // }
 
-    const csvContent = file.buffer.toString();
+    // const csvContent = file.buffer.toString();
 
     let parseResult;
-    try {
-      parseResult = parse(csvContent, {
-        header: true,
-        skipEmptyLines: true,
-      });
-    } catch (error) {
-      throw new BadRequestException('CSV 파싱에 실패했습니다.');
-    }
+    // try {
+    //   parseResult = parse(csvContent, {
+    //     header: true,
+    //     skipEmptyLines: true,
+    //   });
+    // } catch (error) {
+    //   throw new BadRequestException('CSV 파싱에 실패했습니다.');
+    // }
 
-    const teamsData = parseResult.data as any[];
+    // const teamsData = parseResult.data as any[];
 
-    for (const teamData of teamsData) {
-      if (_.isNil(teamData.name) || _.isNil(teamData.description)) {
-        throw new BadRequestException(
-          'CSV 파일은 name과 description 컬럼을 포함해야 합니다.',
-        );
-      }
-    }
+    // for (const teamData of teamsData) {
+    //   if (_.isNil(teamData.name) || _.isNil(teamData.description)) {
+    //     throw new BadRequestException(
+    //       'CSV 파일은 name과 description 컬럼을 포함해야 합니다.',
+    //     );
+    //   }
+    // }
 
-    const createTeamDtos = teamsData.map((teamData) => ({
-      name: teamData.name,
-      description: teamData.description,
-    }));
+    // const createTeamDtos = teamsData.map((teamData) => ({
+    //   name: teamData.name,
+    //   description: teamData.description,
+    // }));
 
-    await this.teamRepository.save(createTeamDtos);
+    // await this.teamRepository.save(createTeamDtos);
   }
 
   async update(id: number, updateTeamDto: UpdateTeamDto) {

@@ -20,7 +20,6 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { UpdateTeamDto } from './dto/update-team.dto';
 import { TeamService } from './team.service';
 
-@UseGuards(RolesGuard)
 @Controller('team')
 export class TeamController {
   constructor(private readonly teamService: TeamService) {}
@@ -38,7 +37,7 @@ export class TeamController {
   @Roles(Role.Admin)
   @Post()
   @UseInterceptors(FileInterceptor('file'))
-  async create(@UploadedFile() file: Express.Multer.File) {
+  async create(@UploadedFile() file: string) {
     await this.teamService.create(file);
   }
 

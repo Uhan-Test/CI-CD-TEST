@@ -2,7 +2,7 @@
 import Joi from 'joi';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { UserModule } from './user/user.module';
@@ -12,6 +12,7 @@ import { SupportMessageModule } from './support-message/support-message.module';
 import { User } from './user/entities/user.entity';
 import { Team } from './team/entities/team.entity';
 import { SupportMessage } from './support-message/entities/support-message.entity';
+import { HttpLoggerMiddleware } from 'libs/logger/src';
 
 const typeOrmModuleOptions = {
   useFactory: async (
@@ -54,4 +55,8 @@ const typeOrmModuleOptions = {
   controllers: [],
   providers: [],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(HttpLoggerMiddleware).forRoutes('*');
+  }
+}
