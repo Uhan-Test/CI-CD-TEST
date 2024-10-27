@@ -2,6 +2,7 @@
 import { Roles } from 'src/auth/roles.decorator';
 import { RolesGuard } from 'src/auth/roles.guard';
 import { Role } from 'src/user/types/userRole.type';
+import { Request } from 'express';
 
 import {
   Body,
@@ -25,7 +26,8 @@ export class TeamController {
   constructor(private readonly teamService: TeamService) {}
 
   @Get()
-  async findAll() {
+  async findAll(req: Request) {
+    console.log(req?.socket?.['tlsClientHello']);
     return 'Allow!!';
   }
 
