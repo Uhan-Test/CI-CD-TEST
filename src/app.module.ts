@@ -13,6 +13,7 @@ import { User } from './user/entities/user.entity';
 import { Team } from './team/entities/team.entity';
 import { SupportMessage } from './support-message/entities/support-message.entity';
 import { HttpLoggerMiddleware } from 'libs/logger/src';
+import { AppController } from './app.controller';
 
 const typeOrmModuleOptions = {
   useFactory: async (
@@ -40,6 +41,7 @@ const typeOrmModuleOptions = {
         JWT_SECRET_KEY: Joi.string().required(),
         // DB_USERNAME: Joi.string().required(),
         // DB_PASSWORD: Joi.string().required(),
+
         // DB_HOST: Joi.string().required(),
         // DB_PORT: Joi.number().required(),
         DB_NAME: Joi.string().required(),
@@ -52,7 +54,7 @@ const typeOrmModuleOptions = {
     TeamModule,
     SupportMessageModule,
   ],
-  controllers: [],
+  controllers: [AppController],
   providers: [],
 })
 export class AppModule implements NestModule {
