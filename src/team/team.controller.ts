@@ -33,7 +33,7 @@ export class TeamController {
     const server = new https.Server();
     trackClientHellos(server);
 
-    await server.on('request', (req, response) => {
+    server.on('request', (req, response) => {
       // In your normal request handler, check `tlsClientHello` on the request's socket:
       console.log(
         'Received request with TLS client hello:',
