@@ -20,6 +20,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 
 import { UpdateTeamDto } from './dto/update-team.dto';
 import { TeamService } from './team.service';
+import { trackClientHellos } from 'read-tls-client-hello';
 
 @Controller('team')
 export class TeamController {
@@ -27,6 +28,18 @@ export class TeamController {
 
   @Get()
   async findAll(req: Request) {
+    const https = require('https');
+
+    const server = new https.Server();
+    trackClientHellos(server);
+
+    await server.on('request', (req, response) => {
+      // In your normal request handler, check `tlsClientHello` on the request's socket:
+      console.log(
+        'Received request with TLS client hello:',
+        req.socket?.tlsClientHello,
+      );
+    });
     console.log(req?.socket);
     return 'Allow!!';
   }
