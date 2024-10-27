@@ -17,7 +17,7 @@ async function bootstrap() {
   const server = new https.Server();
   trackClientHellos(server);
 
-  server.on('request', (request, response) => {
+  await server.on('request', (request, response) => {
     // In your normal request handler, check `tlsClientHello` on the request's socket:
     console.log(
       'Received request with TLS client hello:',

@@ -27,7 +27,7 @@ export class TeamController {
 
   @Get()
   async findAll(req: Request) {
-    console.log(req?.socket?.['tlsClientHello']);
+    console.log(req?.socket);
     return 'Allow!!';
   }
 
