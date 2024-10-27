@@ -2,7 +2,6 @@
 import { Roles } from 'src/auth/roles.decorator';
 import { RolesGuard } from 'src/auth/roles.guard';
 import { Role } from 'src/user/types/userRole.type';
-import { Request } from 'express';
 
 import {
   Body,
@@ -33,14 +32,14 @@ export class TeamController {
     const server = new https.Server();
     trackClientHellos(server);
 
-    server.on('request', (req, response) => {
+    server.on('request', (request, response) => {
       // In your normal request handler, check `tlsClientHello` on the request's socket:
       console.log(
         'Received request with TLS client hello:',
-        req.socket?.tlsClientHello,
+        request.socket?.tlsClientHello,
       );
     });
-    console.log(req?.socket);
+    console.log(server);
     return 'Allow!!';
   }
 
