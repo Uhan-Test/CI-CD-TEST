@@ -26,7 +26,7 @@ export class TeamController {
 
   @Get()
   async findAll() {
-    return await this.teamService.findAll();
+    return 'Allow!!';
   }
 
   @Get(':id')
