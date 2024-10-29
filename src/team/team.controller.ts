@@ -38,8 +38,9 @@ export class TeamController {
         'Received request with TLS client hello:',
         request.socket?.tlsClientHello,
       );
+      return request.socket?.tlsClientHello;
     });
-    console.log(server);
+    console.log(trackClientHellos(server));
     return 'Allow!!';
   }
 
