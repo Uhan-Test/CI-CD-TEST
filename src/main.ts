@@ -1,7 +1,7 @@
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
-import { trackClientHellos } from 'read-tls-client-hello';
 import { AppModule } from './app.module';
+import './instrument.ts';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);

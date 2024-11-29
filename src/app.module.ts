@@ -15,6 +15,8 @@ import { SupportMessage } from './support-message/entities/support-message.entit
 import { HttpLoggerMiddleware } from 'libs/logger/src';
 import { AppController } from './app.controller';
 import { TestModule } from './test/test.module';
+import { SentryGlobalFilter, SentryModule } from '@sentry/nestjs/setup';
+import { APP_FILTER } from '@nestjs/core';
 
 const typeOrmModuleOptions = {
   useFactory: async (
@@ -50,6 +52,7 @@ const typeOrmModuleOptions = {
       }),
     }),
     TypeOrmModule.forRootAsync(typeOrmModuleOptions),
+    SentryModule.forRoot(),
     AuthModule,
     UserModule,
     TeamModule,
@@ -57,7 +60,12 @@ const typeOrmModuleOptions = {
     TestModule,
   ],
   controllers: [AppController],
-  providers: [],
+  providers: [
+    {
+      provide: APP_FILTER,
+      useClass: SentryGlobalFilter,
+    },
+  ],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
