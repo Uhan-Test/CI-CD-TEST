@@ -14,6 +14,7 @@ import { Team } from './team/entities/team.entity';
 import { SupportMessage } from './support-message/entities/support-message.entity';
 import { HttpLoggerMiddleware } from 'libs/logger/src';
 import { AppController } from './app.controller';
+import { TestModule } from './test/test.module';
 
 const typeOrmModuleOptions = {
   useFactory: async (
@@ -53,6 +54,7 @@ const typeOrmModuleOptions = {
     UserModule,
     TeamModule,
     SupportMessageModule,
+    TestModule,
   ],
   controllers: [AppController],
   providers: [],
